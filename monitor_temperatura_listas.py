@@ -17,4 +17,4 @@ print("--"*50)
 print("Reportes de alerta")
 
 for temp in alertas:
-    print(f"Temperatura: {temp}")
+    print(f"Temperatura: {temp} grados celcius")
