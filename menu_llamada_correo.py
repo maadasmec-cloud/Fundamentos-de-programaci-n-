@@ -50,7 +50,6 @@ while True:
                             print("cerrar sesión")
                             break
 
-
        
         elif opcion_1 == "2":
             usuario = input("ingrese su nuevo usuario: ")
@@ -80,3 +79,6 @@ while True:
 
     except ValueError:
         print("dato ingresado no es correcto")
+
+
+
