@@ -29,16 +29,9 @@ def leer_opcion():
     return 0
 
 
-def registrar_invitado (lista_invitados, ticket, nombre):
-    
-    posicion = buscar_invitado(lista_invitados, ticket)
+        
 
-    if posicion >= 0:
-        return False
-    
-    nuevo = {"nombre": nombre, "ticket": ticket, "ingresado":False}
-    lista_invitados.append(nuevo)
-    return True
+
 
 
 
