@@ -11,10 +11,12 @@ def mostrar_menu():
     print("6. Salir")
 
 def opcion_menu():
-    opcion = input("Ingrese una opción del menú: ")
-    if opcion in ['1','2','3','4','5','6']:
-        return int(opcion)
-    return 0
+    while True:
+        opcion = input("Ingrese una opción del menú: ")
+        if opcion in ['1','2','3','4','5','6']:
+            return int(opcion)
+        else:
+             print("Opcion no valida")
 
 #================================
 #funciones de validación
@@ -27,7 +29,7 @@ def cantidad_paginas(paginas):
     return paginas > 0
 
 def validar_puntuacion (puntuacion):
-    return puntuacion > 0 and puntuacion <= 10
+    return puntuacion >= 0 and puntuacion <= 10
 
 #================================
 #función buscar
@@ -92,7 +94,7 @@ def agregar_libro(lista_libros):
 #================================
 def eliminar_libro (lista_libros):
     if len(lista_libros) > 0:
-        titulo = input("Ingrese el titulo del libro que desea eliminar: ")
+        titulo = input("Ingrese el titulo del libro que desea eliminar: ").strip()
         posicion = buscar_libro(lista_libros, titulo)
         if posicion >= 0:
             lista_libros.pop(posicion)
@@ -111,10 +113,10 @@ def actualizar_destacados (lista_libros):
             libro['destacado'] = True
         else:
             libro['destacado'] = False
-    print("Destacados actualizados")
+    
 
 #================================
-#función actualizar destacados
+#función mostrar libros
 #================================
 
 def mostrar_libros (lista_libros):
@@ -127,9 +129,9 @@ def mostrar_libros (lista_libros):
             print(f"puntuación: {libro['puntuacion']}")
 
             if libro['destacado']:
-                print("Estado: Destacado")
+                print("Estado: DESTACADOS")
             else:
-                 print("Estado: Estandar")
+                 print("Estado: ESTANDAR")
 
             print("-------------------------------")
                
@@ -147,13 +149,16 @@ def systema_central():
                 agregar_libro(lista_libros)
 
             elif opcion == 2:
-                titulo = input("Ingrese el titulo a buscar: ")
-                posicion = buscar_libro(lista_libros, titulo)
-                if posicion >= 0:
-                     print(f"El libro {titulo} se encuenta en la ubicacion {posicion + 1} ")
-                     print(lista_libros[posicion])
+                if len(lista_libros) > 0:
+                    titulo = input("Ingrese el titulo a buscar: ")
+                    posicion = buscar_libro(lista_libros, titulo)
+                    if posicion >= 0:
+                        print(f"El libro {titulo} se encuenta en la ubicacion {posicion + 1} ")
+                        print(lista_libros[posicion])
+                    else:
+                        print("El libro no se encontro")
                 else:
-                     print("El libro no se encontro")
+                     print("NO existen libros en el registro para buscar")
                      
 
             elif opcion == 3:
@@ -161,6 +166,7 @@ def systema_central():
 
             elif opcion == 4:
                 actualizar_destacados(lista_libros)
+                print("Se actualizaron destacados")
             
             elif opcion == 5:
                 mostrar_libros(lista_libros)
@@ -172,6 +178,9 @@ def systema_central():
             elif opcion == 6:
                 print("Gracias por usar nuestro programa... adios")
                 break
+
+            elif opcion == 0:
+                 print("Opción no valida")
 
          
               
