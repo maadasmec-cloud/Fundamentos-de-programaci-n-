@@ -115,15 +115,12 @@ def eliminar_juego(lista_juegos):
 #===================================================
 
 def actualizar_destacados(lista_juegos):
-    if len(lista_juegos) > 0:
-        for titulo in lista_juegos:
-            if titulo['puntuacion'] >= 8:
-                titulo['destacado'] = True
+    for titulo in lista_juegos:
+        if titulo['puntuacion'] >= 8:
+            titulo['destacado'] = True
 
-            else:
-                titulo['destacados'] = False
-    else:
-        print("No existen juegos por actualizar, lista vacia")
+        else:
+            titulo['destacado'] = False
 
 #===================================================
 #FUNCIÓN  MOSTRAR JUEGOS
@@ -132,8 +129,9 @@ def actualizar_destacados(lista_juegos):
 def mostrar_juegos(lista_juegos):
     actualizar_destacados(lista_juegos)
     if len(lista_juegos) > 0:
+        print("=== LISTA DE VIDEOJUEGOS ===")
+
         for titulo in lista_juegos:
-            print("=== LISTA DE VIDEOJUEGOS ===")
             print(f"Titulo: {titulo['titulo']}")
             print(f"Horas: {titulo['horas']}")
             print(f"Puntuacion: {titulo['puntuacion']}")
