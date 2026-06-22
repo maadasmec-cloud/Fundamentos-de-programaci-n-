@@ -31,7 +31,7 @@ def validar_lista_con_reservas(lista_reservas):
     return(len(lista_reservas) > 0)
 def agregar_reserva(lista_reservas):
     while True:
-        codigo = input("Ingresa el codigo de la reserva: ")
+        codigo = input("Ingresa el codigo de la reserva: ").strip()
         if validar_codigo(codigo):
             if buscar_reserva(lista_reservas, codigo) >= 0:
                 print("Ya existe una reserva con ese codigo")
@@ -72,7 +72,7 @@ def agregar_reserva(lista_reservas):
 
 def eliminar_registro(lista_reservas):
     if validar_lista_con_reservas(lista_reservas):
-        codigo = input("Ingresa codigo se reserva a eliminar: ")
+        codigo = input("Ingresa codigo se reserva a eliminar: ").strip()
         posicion = buscar_reserva(lista_reservas, codigo)
         if posicion >= 0:
             lista_reservas.pop(posicion)
@@ -115,7 +115,7 @@ def sistema_principal():
             agregar_reserva(lista_reservas)
         elif opcion == 2:
             if validar_lista_con_reservas(lista_reservas):
-                codigo = input("Ingrese el codigo de la reserva que busca: ")
+                codigo = input("Ingrese el codigo de la reserva que busca: ").strip()
                 posicion = buscar_reserva(lista_reservas, codigo)
                 if posicion >= 0:
                     print(f" La reserva esta en en el indice: {posicion}")
