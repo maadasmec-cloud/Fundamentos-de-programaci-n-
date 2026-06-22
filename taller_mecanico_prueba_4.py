@@ -54,9 +54,13 @@ def agregar_orden(lista_ordenes):
         patente = input("Ingrese la patente: ").strip()
         #valida patente sin solo espacios o vacio
         if validar_patente(patente):
+            if buscar_patente(lista_ordenes, patente) != -1:
+                print("Ya existe una orden con esa patente")
+                return
             break
         else:
             print("Nombre de patente no valído")
+
 
     while True:
         try:
