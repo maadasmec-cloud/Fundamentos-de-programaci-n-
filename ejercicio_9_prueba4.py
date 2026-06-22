@@ -94,21 +94,20 @@ def agregar_registro(lista_registros):
         'internacional': False
         }
     lista_registros.append(registro)
+    print("Registro agregado exitosamente")
 #==============================
 #FUNCION DE ACTUALIZAR
 #==============================
 def actualizar_registros(lista_registros):
-    if validar_lista_con_registros(lista_registros):
         for registro in lista_registros:
             if registro['precio_asiento'] >= 150000:
                 registro['internacional'] = True
             else:
                 registro['internacional'] = False
-    else:
-        print("Lista vacia. Nada que actualizar")
+    
 
 #==============================
-#FUNCION DE MOSTAR
+#FUNCION DE MOSTRAR
 #==============================
 def mostrar_registros(lista_registros):
     if validar_lista_con_registros(lista_registros):
@@ -123,6 +122,8 @@ def mostrar_registros(lista_registros):
             else:
                 print("Destino: NACIONAL")
             print("**" *30)
+    else:
+        print("No hay registros para mostrar")
 
 #==============================
 #FUNCION PRINCIPAL
@@ -164,10 +165,8 @@ def sistema_principal():
                 print("No hay registros que actualizar")
 
         elif opcion == 5:
-            if validar_lista_con_registros(lista_registros):
-               mostrar_registros(lista_registros)
-            else:
-                print("No hay registro para mostar")
+            mostrar_registros(lista_registros)
+            
         elif opcion == 6:
             print("Gracias por usar el sistema de la aerolínea. Vuelva pronto.")
             break
