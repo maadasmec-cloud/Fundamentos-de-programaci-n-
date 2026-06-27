@@ -1,0 +1,14 @@
+[
+    {
+        "titulo": "harry potter",
+        "duracion": 180,
+        "calificacion": 8.0,
+        "disponible": true
+    },
+    {
+        "titulo": "rapidos y furiosos 7",
+        "duracion": 160,
+        "calificacion": 6.7,
+        "disponible": false
+    }
+]
