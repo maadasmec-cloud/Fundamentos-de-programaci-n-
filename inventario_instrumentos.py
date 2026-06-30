@@ -44,33 +44,41 @@ def validar_precio(precio):
 def tiene_instrumento(lista_instrumento):
     return(len(lista_instrumento) > 0)
 
+def validar_cantidad (cantidad):
+    return(cantidad > 0)
+
 #===========================
 #Funcion vender instrumento
 #===========================
-"""Esta funcion busca el producto usando la funcion buscar instrumento
-luego lo saca o elimina de la lista con .pop()"""
-
+"""Aqui debo ejecutar de distinta manera que eliminar por que no quiero eliminar sino descontar,
+lo que podria hacer es buscar el diccionario del instrumento que quiere comprar el cliente,
+luego en ese diccionario buscar la clave stock y restarle la cantidad que quiere comprar el 
+cliente, esto haria que el instrumento siga en el registro pero sin stock si llega su 
+stock a 0."""
 def vender_instrumento(lista_instrumento):
     if tiene_instrumento(lista_instrumento):
-        instrumento = input("Ingrese modelo del instrumento a vender: ")
-        posicion = buscar_instrumento(lista_instrumento, instrumento)
-        if posicion >= 0:
-
-            print("La venta del instrumento se ejecuto exitosamente.")
-        else:
-            print("EL instrumento no se encuentra disponible.")
-
-        cantidad = int(input("Cuantos comprará: "))
-        if lista_instrumento[posicion]['stock'] <= cantidad:
-            lista_instrumento.pop(posicion['stock'])
-            print("Venta exitosa")
-        else:
-            print("Stock no disponible para esta compra")
-    
+       instrumento = input("Ingrese el modelo del instrumento: ")
+       posicion = buscar_instrumento(lista_instrumento,instrumento)
+       if posicion >= 0:
+           while True:
+                try:
+               
+                    cantidad = int(input("Ingrese la cantidad a vender: "))
+                    if validar_cantidad(cantidad):
+                            if lista_instrumento[posicion]['stock'] >= cantidad:
+                                lista_instrumento[posicion]['stock'] -= cantidad
+                                print("Instrumento vendido exitosamente")
+                                break
+                            else:
+                                print("No hay stock para ejecutar la venta")
+                    else:
+                        print("Cantidad no es valida.")
+                except ValueError:
+                    print("Cantidad debe ser un valor numerico mayor a 0")
+       else:
+           print("Producto no registrado")
     else:
-        print("En este momento nos encontramos sin stock de instrumentos.")
-        
-
+        print("Aun no hay registros de instrumentos. Nada que vender.")
 #==============================
 #Funcion de registrar instrumento
 #==============================
@@ -139,12 +147,43 @@ def mostrar_instrumentos(lista_instrumentos):
             print(f"Precio: {instrumento['precio']}")
             print("-------------------------------")
 
+#============================
+#Función ingresar embarque
+#============================
+"""Primero validamos que la lista tenga registros, si tiene pedimos el modelo
+que trae el embarque, usamos la función buscar instrumento para guardarlo en la 
+variable posicion con el argumento de lista de instrumento y el de instrumento
+que nos dio el usario, si la posicion es mayor o igual a 0 quiere decir que 
+existe ese modelo y por lo tanto podemos agregarlo, usamos el metodo simple de sumar
+en la lista de instrumentos en el indice que nos dio posicion usando la funcion
+buscar y asi tenemos acceso al diccionario y luego a la clave 'stock' le sumamos la
+cantidad ingresada por el usuario que debe ser mayor a 0"""
 
-
+def ingresa_embarque(lista_instrumentos):
+    if tiene_instrumento(lista_instrumentos):
+        instrumento = input("Ingrese el modelo que trae el embarque: ")
+        posicion = buscar_instrumento(lista_instrumentos, instrumento)
+        if posicion >= 0:
+            while True:
+                try:
+                    cantidad = int(input("Ingrese la cantidad: "))
+                    if validar_cantidad(cantidad):
+                
+                        lista_instrumentos[posicion]['stock'] += cantidad
+                        print("Se ingreso el embarque")
+                        break
+                    else:
+                        print("Cantidad debe ser mayor a 0")
+                except ValueError:
+                    print("Valor debe ser un numero entero.")
+        else:
+            print("No tenemos registro de ese modelo. Debe ingresarlo en la opción 1.")
+    else:
+        print("Aun no tenemos registros. Ingrese instrumentos en la opción 1.")
 
 
 def sistema_principal():
-    lista_instrumentos = []
+    lista_instrumentos = [{'tipo':'bajo','modelo':'jazz','stock':10,'precio':20000}]
 
     while True:
         menu_mostrar()
@@ -154,10 +193,29 @@ def sistema_principal():
             registrar_instrumento(lista_instrumentos)
 
         elif opcion == 2:
-            pass
+            """En esta función lo primero que hacemos es validar si tenemos instrumentos
+            registrados, si es asi entramos en la función, le pedimos al cliente el
+            tipo de instrumento que busca( guitarra, bajo, piano, etc.) ponemos una bandera
+            "encontrado" en False, recorremos la lista de instrumentos con la variable
+            instrumento, y si instrumento (variable del ciclo) en la clave 'tipo' es 
+            igual a la ingresada al usuario imprimimos todos los instrumentos de ese tipo
+            con print(f"Modelo: {instrumento['modelo']} | Precio: {instrumento['precio']} | Stock: {instrumento['stock']}")
+            y la bandera encontrado pasa a True, de lo contrario si la bandera nunca cambio
+            al final del ciclo y queda en false en la siguiente condicional mostrara el mensaje
+            que de esos instrumentos no tenemos."""
+            if tiene_instrumento(lista_instrumentos):
+                tipo_cliente = input("Que tipo de instrumento busca: ")
+                encontrado = False
+                for instrumento in lista_instrumentos:
+                    if instrumento['tipo'].lower() == tipo_cliente.lower():
+                        print(f"Modelo: {instrumento['modelo']} | Precio: {instrumento['precio']} | Stock: {instrumento['stock']}")
+                        encontrado = True
+                if not encontrado:
+                    print("No tenemos instrumentos registrados en esa categoria")
+
         
         elif opcion == 3:
-            pass
+            ingresa_embarque(lista_instrumentos)
 
         elif opcion == 4:
             vender_instrumento(lista_instrumentos)
