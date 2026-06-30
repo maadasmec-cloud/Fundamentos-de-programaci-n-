@@ -54,11 +54,48 @@ def stock_marca(marca):
     print(f"El stock es: {total_stock}")
 
 
+#========================================
+#FUNCION PARA BUSCAR PRECIO POR RANGO
+#========================================
+
+def buscar_precio(p_min, p_max):
+    #creamos una lista vacia donde guardaremos lo que encontremos
+    encontrados = []
+
+    #iniciamos un ciclo con dos variables, modelo que guarda la llave y info_stock que guarda el valor
+    #en este ciclo vamos a recorrer el diccionario stock con items()
+    for modelo, info_stock in stock.items():
+        #creamos la variable precio y guardamos el valor de la clave en el indice 0 (info_stock[0]) este es el precio
+        precio = info_stock[0]
+        #cramos variable cantidad y guardamos el valor de clave en el indice 1 (info_stock[1]) esta es la cantidad stock
+        cantidad = info_stock[1]
+
+        #Verificamos que este en el rango del usuario y que el stock sea mayor a 0
+        if p_min <= precio <= p_max and cantidad > 0:
+            #creamos la variable marc[a que guardara del diccionario producto la clave modelo con el valor del indice 0
+            marca = productos[modelo][0]
+            #agregamos a la lista encontrados
+            encontrados.append(f"{marca}--{modelo}")
+
+    #si encontrados es verdadero
+    if encontrados:
+        #ordenamos alfabeticamente
+        encontrados.sort()
+        #Imprimimos los encontrados
+        print(f"Los encontrados son: {encontrados}")
+    else:
+        print("Notebook no encontrados")
+
+    return 'S✔0oyUnT'    
+
+
 
 def principal ():
 
-    marca = input("Ingrese la marca: ")
-    stock_marca(marca)
+   p_min = int(input("Ingrese el minimo: "))
+   p_max =int(input("Ingrese maximo: "))
+
+   buscar_precio(p_min, p_max)
 
 
 if __name__ == "__main__":
