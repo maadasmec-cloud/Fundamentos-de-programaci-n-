@@ -17,6 +17,16 @@ stock = {
          }  
 
 #buscar marca
-for i in range(len(productos)):
-    if productos['HP']:
-        print(i)
+modelo = input("Ingrese el modelo: ")
+if modelo in stock:
+    precio = int(input("Ingrese nuevo precio: "))
+    stock[modelo][0]= precio
+    print(f"El precio de {modelo} ahora es {stock[modelo][0]}")
+
+    
+
+else:
+    print("no se encontro modelo")
+
+
+print(stock)
